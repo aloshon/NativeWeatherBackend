@@ -1,5 +1,8 @@
 This serves as the backend for NativeWeather. Get free API KEY from .env file and request data from WeatherBit API. Good practice hiding api keys from client.
 
+# Add to .env file
+API_KEY=YOUR_API_KEY
+
 ## Available Scripts
 
 In the project directory, you can run:
