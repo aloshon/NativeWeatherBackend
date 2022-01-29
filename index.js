@@ -1,4 +1,4 @@
-const PORT = 8081;
+const PORT = +process.env.PORT || 8081;
 // const host = "166.171.121.139";
 const express = require("express");
 const cors = require("cors");
@@ -10,7 +10,7 @@ const app = express();
 app.use(cors())
 
 app.get("/", (req, res) => {
-    res.json("why hello there!")
+    res.status(200).json("why hello there!")
 });
 
 app.get("/weather", async (req, res, next) => {
