@@ -1,7 +1,11 @@
-This serves as the backend for NativeWeather. Get free API KEY from .env file and request data from WeatherBit API. Good practice hiding api keys from client.
+This serves as the backend for NativeWeather. Get free API KEY from .env file and request data from WeatherBit API.
 
 # Add to .env file
+Go to [https://www.weatherbit.io/](https://www.weatherbit.io/) and make an account to get an API KEY and set it like this in .env:
 API_KEY=YOUR_API_KEY
+
+Install all packages
+```npm install```
 
 ## Available Scripts
 
