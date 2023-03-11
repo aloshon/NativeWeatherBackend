@@ -3,6 +3,7 @@ const PORT = +process.env.PORT || 8081;
 const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
+const cache = require("route-cache");
 require("dotenv").config();
 
 const app = express();
@@ -13,7 +14,7 @@ app.get("/", (req, res) => {
     res.status(200).json("why hello there!")
 });
 
-app.get("/weather", async (req, res, next) => {
+app.get("/weather", cache.cacheSeconds(3600), async (req, res, next) => {
     try {
         const params = {
             lat: req.query.lat,
