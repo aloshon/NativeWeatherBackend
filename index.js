@@ -3,7 +3,8 @@ const PORT = +process.env.PORT || 8081;
 const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
-const cache = require("route-cache");
+const ExpressRouteCache = require("express-route-cache");
+const cache = new ExpressRouteCache(3600)
 require("dotenv").config();
 
 const app = express();
@@ -14,20 +15,21 @@ app.get("/", (req, res) => {
     res.status(200).json("why hello there!")
 });
 
-app.get("/weather", cache.cacheSeconds(3600), async (req, res, next) => {
+app.get("/weather", cache.cache(), async (req, res, next) => {
     try {
         const params = {
             lat: req.query.lat,
             lon: req.query.lon,
-            units: req.query.units
+            units: req.query.units,
+            key: process.env.API_KEY
         }
         
         const headers = {
             'x-rapidapi-key': process.env.API_KEY
         }
         
-        const currentRes = await axios.get(`https://weatherbit-v1-mashape.p.rapidapi.com/current`, {params, headers});
-        const forecastRes = await axios.get(`https://weatherbit-v1-mashape.p.rapidapi.com/forecast/daily`, {params, headers});
+        const currentRes = await axios.get(`https://api.weatherbit.io/v2.0/current`, {params, headers});
+        const forecastRes = await axios.get(`https://api.weatherbit.io/v2.0/forecast/daily`, {params, headers});
     
         // Only get the data that we want
         const forecastData = forecastRes.data.data.map(day => {
@@ -46,7 +48,7 @@ app.get("/weather", cache.cacheSeconds(3600), async (req, res, next) => {
         const result = {currentData, forecastData}
         console.log(result)
         JSON.stringify(result)
-        res.status(200).json(result);
+        res.json(result);
     } catch(err){
         console.log(err)
         return next(err)
