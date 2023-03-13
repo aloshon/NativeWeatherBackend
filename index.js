@@ -23,6 +23,9 @@ app.get("/weather", cache.cache(), async (req, res, next) => {
             units: req.query.units,
             key: process.env.API_KEY
         }
+
+        console.log("DATA BEING SENT TO API")
+        console.log(params)
         
         const headers = {
             'x-rapidapi-key': process.env.API_KEY
