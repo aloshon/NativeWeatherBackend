@@ -51,7 +51,7 @@ app.get("/weather", async (req, res, next) => {
         const result = {currentData, forecastData}
         console.log(result)
         JSON.stringify(result)
-        res.json(result);
+        res.status(200).json(result);
     } catch(err){
         console.log(err)
         return next(err)
